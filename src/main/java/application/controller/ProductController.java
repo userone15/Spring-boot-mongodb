@@ -15,10 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import application.model.Product;
 import application.repository.ProductRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
 
+	private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
+	
 	@Autowired
 	private ProductRepository productRepository;
 	
@@ -37,7 +42,7 @@ public class ProductController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	  public Map<String, Object> getAllProducts(){
-		System.out.println("Application is invoked!");
+		LOG.info("Application is invoked!");
 	    List<Product> products = productRepository.findAll();
 	    Map<String, Object> response = new LinkedHashMap<String, Object>();
 	    response.put("totalProducts", products.size());
